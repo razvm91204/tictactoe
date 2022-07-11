@@ -36,6 +36,10 @@ function Player(name, sign){
             else
                 AI.makeMove();
         }
+        if(gameBoard.indexOf('')<0){
+            document.getElementById('status').textContent='Draw!';
+            document.getElementById('status').classList.add('fade');
+        }
     }
     function logger(){
         console.log(name, gameBoard);
@@ -66,11 +70,17 @@ function Ai(name, sign){
     this.sign=sign;
     let positions=[];
     function makeMove(){
-        let move=Math.floor(Math.random()*9);
-        if(gameBoard[move]=='')
-            markSign('AI', move)
-        else
-            makeMove();
+        if(gameBoard.indexOf('')<0){
+            document.getElementById('status').textContent='Draw!';
+            document.getElementById('status').classList.add('fade');
+        }
+        else{
+            let move=Math.floor(Math.random()*9);
+            if(gameBoard[move]=='')
+                markSign('AI', move)
+            else
+                makeMove();
+        }
     }
     function markSign(name, move){
         squares[move].classList.add('enemy');
